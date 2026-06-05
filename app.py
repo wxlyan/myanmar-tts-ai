@@ -1,33 +1,64 @@
 from gtts import gTTS
 import gradio as gr
-import os
 
-def text_to_speech(text):
-    if not text:
+def text_to_speech(text, voice):
+    if not text.strip():
         return None
 
     filename = "output.mp3"
 
     tts = gTTS(
         text=text,
-        lang="my"
+        lang="my",
+        slow=False
     )
 
     tts.save(filename)
 
     return filename
 
-app = gr.Interface(
-    fn=text_to_speech,
-    inputs=gr.Textbox(
-        lines=8,
-        label="မြန်မာစာရိုက်ပါ"
-    ),
-    outputs=gr.Audio(
-        label="အသံထွက်"
-    ),
-    title="Myanmar TTS AI",
-    description="မြန်မာစာကို အသံထွက်ပြောင်းပေးသော AI"
-)
+with gr.Blocks(theme=gr.themes.Soft()) as demo:
 
-app.launch()
+    gr.Markdown(
+        """
+        # 🇲🇲 Myanmar TTS AI
+        Convert Myanmar Text to Voice
+        """
+    )
+
+    text_input = gr.Textbox(
+        lines=8,
+        label="Text Input",
+        placeholder="မြန်မာစာ ရိုက်ထည့်ပါ..."
+    )
+
+    voice_select = gr.Dropdown(
+        choices=[
+            "Female Voice",
+            "Male Voice"
+        ],
+        value="Female Voice",
+        label="Voice Type"
+    )
+
+    generate_btn = gr.Button(
+        "🎤 Generate Voice",
+        variant="primary"
+    )
+
+    audio_output = gr.Audio(
+        label="Generated Audio",
+        type="filepath"
+    )
+
+    download_output = gr.File(
+        label="⬇ Download MP3"
+    )
+
+    generate_btn.click(
+        fn=text_to_speech,
+        inputs=[text_input, voice_select],
+        outputs=[audio_output, download_output]
+    )
+
+demo.launch()
