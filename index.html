@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<title>Myanmar TTS Free AI</title>
+<style>
+body { font-family: "Noto Sans Myanmar", sans-serif; text-align:center; padding:50px; }
+textarea { width: 80%; height:100px; font-size:16px; }
+button { font-size:16px; padding:10px 20px; margin-top:10px; }
+audio { margin-top:20px; width:80%; }
+</style>
+</head>
+<body>
+<h1>မြန်မာ TTS Free AI 🌟</h1>
+<textarea id="textInput" placeholder="မြန်မာစာရိုက်ပါ..."></textarea><br>
+<button onclick="generateAudio()">အသံထုတ်မယ်</button>
+<br>
+<audio id="audioPlayer" controls></audio>
+
+<script>
+async function generateAudio() {
+    const text = document.getElementById('textInput').value;
+    if (!text) { alert("စာရိုက်ပါ"); return; }
+
+    // Prototype: ဒီနေရာမှာ API call မရှိသေးဘူး
+    alert("ဒီနေရာမှာ Myanmar TTS API ချိတ်ဆက်ပါမယ်။");
+}
+</script>
+</body>
+</html>
